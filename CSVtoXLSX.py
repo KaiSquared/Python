@@ -30,7 +30,7 @@ else:
 
 # Define writer for excel destination
 writer = pd.ExcelWriter(os.path.join(workdir, 'Calling Lists.xlsx'), engine='xlsxwriter')
-    
+
 # Loop through all csv files in working directory and
 # write them into excel workbook as separate tabs
 for filename in input_paths:
@@ -41,6 +41,7 @@ for filename in input_paths:
 
     # Format the output
     workbook = writer.book
+    currency_format = workbook.add_format({'num_format': '$#,##0.00'})
     worksheet = writer.sheets[curSheet]
     worksheet.set_column('B:B', 32)
     worksheet.set_column('C:E', 13)
@@ -49,5 +50,6 @@ for filename in input_paths:
     worksheet.set_column('I:I', 11.14)
     worksheet.set_column('J:J', 14.86)
     worksheet.set_column('P:P', 15.71)
+    worksheet.set_column('AA:AA',9, currency_format)
 
 writer.save()
